@@ -17,11 +17,10 @@
 	<div class="form-group">
 	<label for="barber">Ваш парихмахер</label>
 	<select class="form-control" name="barber">
-		<option value="Вадим">Вадим</option>
-		<option value="Яна">Яна</option>
-		<option value="Дамир">Дамир</option>
-		<option value="Олег">Олег</option>
-		<option value="Ольга">Ольга</option>
+		<option value="Вадим" <%= @barber == 'Вадим' ? 'selected' : '' %>>Вадим</option>
+		<option value="Яна" <%= @barber == 'Яна' ? 'selected' : '' %>>Яна</option>
+		<option value="Олег" <%= @barber == 'Олег' ? 'selected' : '' %>>Олег</option>
+		<option value="Ольга" <%= @barber == 'Ольга' ? 'selected' : '' %>>Ольга</option>
 	</select>
 </div>
 	<div class="form-group">
