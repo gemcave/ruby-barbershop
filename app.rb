@@ -4,7 +4,9 @@ require 'sinatra/reloader'
 require 'sqlite3'
 
 def get_db
-	return SQLite3::Database.new 'barbershop.db'
+	db = SQLite3::Database.new 'barbershop.db'
+	db.results_as_hash = true
+	return db
 end
 
 configure do
@@ -61,7 +63,15 @@ post '/visit' do
 					barber,
 					color
 				)
-				values (?,?,?,?,?)', [@username,@phone,@datetime,@barber,@color]
+				values (?,?,?,?,?)', [@name,@phone,@datetime,@barber,@color]
 
 	erb "#{@name}, спасибо вам! #{@datetime} - #{@color} - #{@barber}"
+end
+
+get '/showusers' do
+	db = get_db
+
+	@results = db.execute 'select * from Users order by id desc'
+
+	erb :showusers
 end
