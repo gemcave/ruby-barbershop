@@ -3,16 +3,21 @@ require 'sinatra'
 require 'sinatra/reloader'
 require 'sqlite3'
 
+def get_db
+	return SQLite3::Database.new 'barbershop.db'
+end
+
 configure do
-	db = SQLite3::Database.new 'barbershop.db'
-	db.execute 'CREATE TABLE IF NOT EXISTS "Messages"
+	db = get_db
+	db.execute 'CREATE TABLE IF NOT EXISTS
+	"Users"
     (
       "id" INTEGER PRIMARY KEY AUTOINCREMENT,
       "username" TEXT,
       "phone" TEXT,
-      "email" TEXT,
-      "option" TEXT,
-      "comment" TEXT
+      "datestamp" TEXT,
+      "barber" TEXT,
+      "color" TEXT
     )'
 
 end
@@ -42,9 +47,21 @@ post '/visit' do
 					:datetime => 'Введите дату и время'}
 @error = hh.select {|key,_| params[key] == ''}.values.join(", ")
 
-if @error != ''
-	return erb :visit
-end
+	if @error != ''
+		return erb :visit
+	end
+
+	db = get_db
+	db.execute 'insert into
+				Users
+				(
+					username,
+					phone,
+					datestamp,
+					barber,
+					color
+				)
+				values (?,?,?,?,?)', [@username,@phone,@datetime,@barber,@color]
 
 	erb "#{@name}, спасибо вам! #{@datetime} - #{@color} - #{@barber}"
 end
