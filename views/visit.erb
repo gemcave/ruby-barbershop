@@ -25,10 +25,9 @@
 	<div class="form-group">
 	<label for="barber">Ваш парихмахер</label>
 	<select class="form-control" name="barber">
-		<option value="Вадим" <%= @barber == 'Вадим' ? 'selected' : '' %>>Вадим</option>
-		<option value="Яна" <%= @barber == 'Яна' ? 'selected' : '' %>>Яна</option>
-		<option value="Олег" <%= @barber == 'Олег' ? 'selected' : '' %>>Олег</option>
-		<option value="Ольга" <%= @barber == 'Ольга' ? 'selected' : '' %>>Ольга</option>
+	<% @barbers.each do |item| %>
+		<option value="<%= item['name'] %>" <%= @barber == item['name'] ? 'selected' : '' %>><%= item['name'] %></option>
+	<% end %>
 	</select>
 </div>
 	<div class="form-group">

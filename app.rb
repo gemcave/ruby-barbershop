@@ -50,6 +50,11 @@ get '/about' do
 	erb :about
 end
 
+before do
+	db = get_db
+	@barbers = db.execute 'select * from Barbers'
+end
+
 get '/visit' do
 	erb :visit 
 end
@@ -81,7 +86,7 @@ post '/visit' do
 					color
 				)
 				values (?,?,?,?,?)', [@name,@phone,@datetime,@barber,@color]
-
+				
 	erb "#{@name}, спасибо вам! #{@datetime} - #{@color} - #{@barber}"
 end
 
