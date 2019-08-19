@@ -46,7 +46,6 @@ get '/' do
 end
 
 get '/about' do
-	@error = "что то пошло не так?"
 	erb :about
 end
 
@@ -87,7 +86,7 @@ post '/visit' do
 				)
 				values (?,?,?,?,?)', [@name,@phone,@datetime,@barber,@color]
 				
-	erb "#{@name}, спасибо вам! #{@datetime} - #{@color} - #{@barber}"
+	erb "<h2>Спасибо вы записались!</h2>"
 end
 
 get '/showusers' do
